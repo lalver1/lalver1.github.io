@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Luis Alvergue</title>
+    <link>https://lalver1.github.io/</link>
+    <description>Recent content on Luis Alvergue</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 21 Aug 2020 23:24:32 -0500</lastBuildDate>
+    
+	<atom:link href="https://lalver1.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Linear Algebra using NumPy</title>
+      <link>https://lalver1.github.io/post/linearalg/</link>
+      <pubDate>Tue, 25 Aug 2020 19:41:19 -0500</pubDate>
+      
+      <guid>https://lalver1.github.io/post/linearalg/</guid>
+      <description>For beginner NumPy users with a linear algebra backgorund, it&amp;rsquo;s easy to understand that to define a matrix, $A=\begin{bmatrix}1&amp;amp;2\\3&amp;amp;4\end{bmatrix}$, we should use
+A = np.array([[1,2],[3,4]])  since
+A Out[2]: array([[1, 2], [3, 4]]) A.shape Out[3]: (2, 2)  However, how should $x=\begin{bmatrix}1\\2\end{bmatrix}$ be defined? Should we use a 1-D array
+x1 = np.array([1,2]) x1 Out[4]: array([1, 2]) x1.shape Out[5]: (2,)  or a 2-D array with 1 column
+x2=np.array([[1],[2]]) x2 Out[6]: array([[1], [2]]) x2.</description>
+    </item>
+    
+    <item>
+      <title>Vegetation shade from Landsat 8 satellite data</title>
+      <link>https://lalver1.github.io/portfolio/gis-shade/</link>
+      <pubDate>Sat, 02 May 2020 19:47:09 +0200</pubDate>
+      
+      <guid>https://lalver1.github.io/portfolio/gis-shade/</guid>
+      <description>Landsat 8 Surface Reflectance measures the fraction of incoming solar radiation reflected from Earth&amp;rsquo;s surface to the Landsat sensor. Surface reflection measurements can be used to determine the type of surface. The Landsat 8 available measurements are shown in the table below.
+  OLI and TRIS sensors
+  The visible bands (bands 2-4) are 12 bit images with Digital Number (DN) values ranging between 0 and 4,095 associated with each pixel.</description>
+    </item>
+    
+    <item>
+      <title>Recursive Autoregressive Time Series Modeling</title>
+      <link>https://lalver1.github.io/portfolio/modeling-ar/</link>
+      <pubDate>Mon, 02 Dec 2019 16:48:00 +0200</pubDate>
+      
+      <guid>https://lalver1.github.io/portfolio/modeling-ar/</guid>
+      <description>An auto-regressive model uses $n$ past observations to model the current value of an observed variable
+$$\begin{aligned}Y[t]=-\sum_{k=1}^{n}a_kY[t-k]\end{aligned}.$$
+In this case, the observed variable, $Y[t]$, is the number of traffic incidents recorded by Austin-Travis County traffic reports and publicly available at the City of Austin open data portal.
+A Python script implements a recursive least squares estimator to compute the weights, $a_k$, and then generates a prediction of the numer of incidents for the next day.</description>
+    </item>
+    
+  </channel>
+</rss>

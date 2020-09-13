@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Portfolio on Luis Alvergue</title>
+    <link>https://lalver1.github.io/portfolio/</link>
+    <description>Recent content in Portfolio on Luis Alvergue</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 02 May 2020 19:47:09 +0200</lastBuildDate>
+    
+	<atom:link href="https://lalver1.github.io/portfolio/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Vegetation shade from Landsat 8 satellite data</title>
+      <link>https://lalver1.github.io/portfolio/gis-shade/</link>
+      <pubDate>Sat, 02 May 2020 19:47:09 +0200</pubDate>
+      
+      <guid>https://lalver1.github.io/portfolio/gis-shade/</guid>
+      <description>Landsat 8 Surface Reflectance measures the fraction of incoming solar radiation reflected from Earth&amp;rsquo;s surface to the Landsat sensor. Surface reflection measurements can be used to determine the type of surface. The Landsat 8 available measurements are shown in the table below.
+  OLI and TRIS sensors
+  The visible bands (bands 2-4) are 12 bit images with Digital Number (DN) values ranging between 0 and 4,095 associated with each pixel.</description>
+    </item>
+    
+    <item>
+      <title>Recursive Autoregressive Time Series Modeling</title>
+      <link>https://lalver1.github.io/portfolio/modeling-ar/</link>
+      <pubDate>Mon, 02 Dec 2019 16:48:00 +0200</pubDate>
+      
+      <guid>https://lalver1.github.io/portfolio/modeling-ar/</guid>
+      <description>An auto-regressive model uses $n$ past observations to model the current value of an observed variable
+$$\begin{aligned}Y[t]=-\sum_{k=1}^{n}a_kY[t-k]\end{aligned}.$$
+In this case, the observed variable, $Y[t]$, is the number of traffic incidents recorded by Austin-Travis County traffic reports and publicly available at the City of Austin open data portal.
+A Python script implements a recursive least squares estimator to compute the weights, $a_k$, and then generates a prediction of the numer of incidents for the next day.</description>
+    </item>
+    
+  </channel>
+</rss>
