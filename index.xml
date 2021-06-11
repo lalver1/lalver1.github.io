@@ -6,11 +6,7 @@
     <description>Recent content on Luis Alvergue</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 21 Aug 2020 23:24:32 -0500</lastBuildDate>
-    
-	<atom:link href="https://lalver1.github.io/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Fri, 21 Aug 2020 23:24:32 -0500</lastBuildDate><atom:link href="https://lalver1.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Linear Algebra using NumPy</title>
       <link>https://lalver1.github.io/post/linearalg/</link>
@@ -31,7 +27,7 @@ x2=np.array([[1],[2]]) x2 Out[6]: array([[1], [2]]) x2.</description>
       
       <guid>https://lalver1.github.io/portfolio/gis-shade/</guid>
       <description>Landsat 8 Surface Reflectance measures the fraction of incoming solar radiation reflected from Earth&amp;rsquo;s surface to the Landsat sensor. Surface reflection measurements can be used to determine the type of surface. The Landsat 8 available measurements are shown in the table below.
-  OLI and TRIS sensors
+ OLI and TRIS sensors
   The visible bands (bands 2-4) are 12 bit images with Digital Number (DN) values ranging between 0 and 4,095 associated with each pixel.</description>
     </item>
     
