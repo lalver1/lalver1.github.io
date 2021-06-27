@@ -8,7 +8,7 @@
   <meta name='theme-color' content='#FD3519' />
   
 
-  <meta name="generator" content="Hugo 0.83.1" />
+  <meta name="generator" content="Hugo 0.84.1" />
 
   
 
@@ -58,7 +58,7 @@
   <div class="intro">
     <div class="logo-container">
       <a href="/">
-        <img src='https://lalver1.github.io/images/luis.jpeg' alt="Profile Recursive auto-regressive estimation" class="rounded-logo">
+        <img src='https://lalver1.github.io/images/luis.jpeg' alt="Profile Tip on using Environment Variables inside Python scripts" class="rounded-logo">
       </a>
     </div>
     <h2>Luis Alvergue</h2>
@@ -167,6 +167,35 @@
     
       <div class="post-container">
   <h2>
+    <a href="https://lalver1.github.io/post/sequential/">Conditionals on sequential data using numpy</a>
+  </h2>
+  <p>It is well known that vectorized operations using numpy run much faster than equivalent loop based operations. Sometimes though, a problem is easier to think about in terms of loop based operations rather than vectorized operations.
+The problem Suppose you need to check for a particular sequence in a list.
+import pandas as pd import numpy as np data = pd.DataFrame({ 'acceleration': [ 1, -3, -2, 7, -10, -3, -2, 8, 2, -1, 5, 10, 7, -3, -4, -6, -7, -9, 10, -4, -2, 3, 6, 8, 9, 12, -11, -9, -7, -3 ] })  The most straightforward way to think about it is to check for the condition using a for loop.</p>
+  <div class="read-more">
+    <a alt="Conditionals on sequential data using numpy" href="https://lalver1.github.io/post/sequential/" /><div class="icon">
+  <svg
+    width="18px"
+    height="18px"
+    viewBox="0 0 115 115"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+    role="img"
+  >
+    
+    <path
+      d="M0 28.818v80.232h44.086c5.2-.045 9.824 1.027 12.077 4.388V34.334c-2.18-3.675-6.792-5.516-12.077-5.516H0zm70.914 0c-5.285 0-9.896 1.841-12.077 5.516v79.104c2.253-3.36 6.876-4.388 12.077-4.388H115V28.818H70.914zM12.034 42.19h33.431a2.674 2.674 0 1 1 0 5.349h-33.43a2.674 2.674 0 0 1 0-5.35zm57.5 0h33.431a2.674 2.674 0 0 1 0 5.349h-33.43a2.674 2.674 0 1 1 0-5.35zm-57.5 12.035h33.431a2.674 2.674 0 1 1 0 5.349h-33.43a2.674 2.674 0 0 1 0-5.35zm57.5 0h33.431a2.674 2.674 0 0 1 0 5.349h-33.43a2.674 2.674 0 1 1 0-5.35zm-57.5 12.035h33.431a2.674 2.674 0 1 1 0 5.348h-33.43a2.674 2.674 0 0 1 0-5.348zm57.5 0h33.431a2.674 2.674 0 0 1 0 5.348h-33.43a2.674 2.674 0 1 1 0-5.348zm-57.5 12.034h33.431a2.674 2.674 0 1 1 0 5.35h-33.43a2.674 2.674 0 0 1 0-5.35zm57.5 0h33.431a2.674 2.674 0 0 1 0 5.35h-33.43a2.674 2.674 0 1 1 0-5.35zm-57.5 12.035h33.431a2.674 2.674 0 1 1 0 5.35h-33.43a2.674 2.674 0 0 1 0-5.35zm57.5 0h33.431a2.674 2.674 0 0 1 0 5.35h-33.43a2.674 2.674 0 1 1 0-5.35z"
+    />
+    
+  </svg>
+</div>
+
+    Read more</a>
+  </div>
+</div>
+    
+      <div class="post-container">
+  <h2>
     <a href="https://lalver1.github.io/post/cgi_setup/">Tip on running Flask applications on Apache/2.4.46 (FreeBSD) using CGI</a>
   </h2>
   <p>After receiving several Internal Server Error from Apache and making changes to httpd-custom.conf when trying to run a Flask app using CGI, I realized that setting environment variables in your .profile does not guarantee your .cgi or .py scripts in the cgi-bin directory will have access to them. Knowing the behavior of crontab and Python scripts, I should have figured this out earlier. For example, if script.py looks something like</p>
@@ -254,70 +283,13 @@ Project Planning When planning the development of this project my objectives wer
   <h2>
     <a href="https://lalver1.github.io/post/linearalg/">Linear Algebra using NumPy</a>
   </h2>
-  <p>For beginner NumPy users with a linear algebra backgorund, it&rsquo;s easy to understand that to define a matrix, $A=\begin{bmatrix}1&amp;2\\3&amp;4\end{bmatrix}$, we should use
+  <p>For beginner NumPy users with a linear algebra background, it&rsquo;s easy to understand that to define a matrix, $A=\begin{bmatrix}1&amp;2\\3&amp;4\end{bmatrix}$, we should use
 A = np.array([[1,2],[3,4]])  since
 A Out[2]: array([[1, 2], [3, 4]]) A.shape Out[3]: (2, 2)  However, how should $x=\begin{bmatrix}1\\2\end{bmatrix}$ be defined? Should we use a 1-D array
 x1 = np.array([1,2]) x1 Out[4]: array([1, 2]) x1.shape Out[5]: (2,)  or a 2-D array with 1 column
 x2=np.array([[1],[2]]) x2 Out[6]: array([[1], [2]]) x2.</p>
   <div class="read-more">
     <a alt="Linear Algebra using NumPy" href="https://lalver1.github.io/post/linearalg/" /><div class="icon">
-  <svg
-    width="18px"
-    height="18px"
-    viewBox="0 0 115 115"
-    xmlns="http://www.w3.org/2000/svg"
-    aria-hidden="true"
-    role="img"
-  >
-    
-    <path
-      d="M0 28.818v80.232h44.086c5.2-.045 9.824 1.027 12.077 4.388V34.334c-2.18-3.675-6.792-5.516-12.077-5.516H0zm70.914 0c-5.285 0-9.896 1.841-12.077 5.516v79.104c2.253-3.36 6.876-4.388 12.077-4.388H115V28.818H70.914zM12.034 42.19h33.431a2.674 2.674 0 1 1 0 5.349h-33.43a2.674 2.674 0 0 1 0-5.35zm57.5 0h33.431a2.674 2.674 0 0 1 0 5.349h-33.43a2.674 2.674 0 1 1 0-5.35zm-57.5 12.035h33.431a2.674 2.674 0 1 1 0 5.349h-33.43a2.674 2.674 0 0 1 0-5.35zm57.5 0h33.431a2.674 2.674 0 0 1 0 5.349h-33.43a2.674 2.674 0 1 1 0-5.35zm-57.5 12.035h33.431a2.674 2.674 0 1 1 0 5.348h-33.43a2.674 2.674 0 0 1 0-5.348zm57.5 0h33.431a2.674 2.674 0 0 1 0 5.348h-33.43a2.674 2.674 0 1 1 0-5.348zm-57.5 12.034h33.431a2.674 2.674 0 1 1 0 5.35h-33.43a2.674 2.674 0 0 1 0-5.35zm57.5 0h33.431a2.674 2.674 0 0 1 0 5.35h-33.43a2.674 2.674 0 1 1 0-5.35zm-57.5 12.035h33.431a2.674 2.674 0 1 1 0 5.35h-33.43a2.674 2.674 0 0 1 0-5.35zm57.5 0h33.431a2.674 2.674 0 0 1 0 5.35h-33.43a2.674 2.674 0 1 1 0-5.35z"
-    />
-    
-  </svg>
-</div>
-
-    Read more</a>
-  </div>
-</div>
-    
-      <div class="post-container">
-  <h2>
-    <a href="https://lalver1.github.io/post/scaling/">The importance of scaling features</a>
-  </h2>
-  <p>If our feature vector has heterogeneous entries, such as when the entries represent different types of quantities, it is important to scale these values. For example, suppose our features consist of surface water readings from USGS, specifically:
-$x_1$ is gage height, in feet, and
-$x_2$ is discharge, in cubic feet per second.
-Typically $x_1$ will range between 0 and 25, and $x_2$ between 0 and 20,000. If we want to build a simple autoregressive model to describe the current gage height given past height and discharge measurements, we could use the following model</p>
-  <div class="read-more">
-    <a alt="The importance of scaling features" href="https://lalver1.github.io/post/scaling/" /><div class="icon">
-  <svg
-    width="18px"
-    height="18px"
-    viewBox="0 0 115 115"
-    xmlns="http://www.w3.org/2000/svg"
-    aria-hidden="true"
-    role="img"
-  >
-    
-    <path
-      d="M0 28.818v80.232h44.086c5.2-.045 9.824 1.027 12.077 4.388V34.334c-2.18-3.675-6.792-5.516-12.077-5.516H0zm70.914 0c-5.285 0-9.896 1.841-12.077 5.516v79.104c2.253-3.36 6.876-4.388 12.077-4.388H115V28.818H70.914zM12.034 42.19h33.431a2.674 2.674 0 1 1 0 5.349h-33.43a2.674 2.674 0 0 1 0-5.35zm57.5 0h33.431a2.674 2.674 0 0 1 0 5.349h-33.43a2.674 2.674 0 1 1 0-5.35zm-57.5 12.035h33.431a2.674 2.674 0 1 1 0 5.349h-33.43a2.674 2.674 0 0 1 0-5.35zm57.5 0h33.431a2.674 2.674 0 0 1 0 5.349h-33.43a2.674 2.674 0 1 1 0-5.35zm-57.5 12.035h33.431a2.674 2.674 0 1 1 0 5.348h-33.43a2.674 2.674 0 0 1 0-5.348zm57.5 0h33.431a2.674 2.674 0 0 1 0 5.348h-33.43a2.674 2.674 0 1 1 0-5.348zm-57.5 12.034h33.431a2.674 2.674 0 1 1 0 5.35h-33.43a2.674 2.674 0 0 1 0-5.35zm57.5 0h33.431a2.674 2.674 0 0 1 0 5.35h-33.43a2.674 2.674 0 1 1 0-5.35zm-57.5 12.035h33.431a2.674 2.674 0 1 1 0 5.35h-33.43a2.674 2.674 0 0 1 0-5.35zm57.5 0h33.431a2.674 2.674 0 0 1 0 5.35h-33.43a2.674 2.674 0 1 1 0-5.35z"
-    />
-    
-  </svg>
-</div>
-
-    Read more</a>
-  </div>
-</div>
-    
-      <div class="post-container">
-  <h2>
-    <a href="https://lalver1.github.io/post/recursivear/">Recursive auto-regressive estimation</a>
-  </h2>
-  <p>Python implementation of a RLS estimator.</p>
-  <div class="read-more">
-    <a alt="Recursive auto-regressive estimation" href="https://lalver1.github.io/post/recursivear/" /><div class="icon">
   <svg
     width="18px"
     height="18px"
