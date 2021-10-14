@@ -8,7 +8,7 @@
   <meta name='theme-color' content='#FD3519' />
   
 
-  <meta name="generator" content="Hugo 0.84.1" />
+  <meta name="generator" content="Hugo 0.88.1" />
 
   
 
@@ -30,7 +30,7 @@
   <meta itemprop="name" content="Linear Algebra using NumPy">
 <meta itemprop="description" content="Difference between using 1-D (N,) array and 2-D (N,1) column array"><meta itemprop="datePublished" content="2020-08-23T17:32:11-05:00" />
 <meta itemprop="dateModified" content="2020-08-25T19:41:19-05:00" />
-<meta itemprop="wordCount" content="268">
+<meta itemprop="wordCount" content="267">
 <meta itemprop="keywords" content="" />
 </head>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
@@ -241,52 +241,44 @@
 </div>
 
 <p>For beginner NumPy users with a linear algebra background, it&rsquo;s easy to understand that to define a matrix, $A=\begin{bmatrix}1&amp;2\\3&amp;4\end{bmatrix}$, we should use</p>
-<pre><code>A = np.array([[1,2],[3,4]])
-</code></pre>
-<p>since</p>
-<pre><code>A
-Out[2]:
-array([[1, 2],
-       [3, 4]])
-A.shape
-Out[3]: (2, 2)
-</code></pre>
-<p>However, how should $x=\begin{bmatrix}1\\2\end{bmatrix}$ be defined? Should we use a 1-D array</p>
-<pre><code>x1 = np.array([1,2])
-x1
-Out[4]: array([1, 2])
-x1.shape
-Out[5]: (2,)
-</code></pre>
-<p>or a 2-D array with 1 column</p>
-<pre><code>x2=np.array([[1],[2]])
-x2
-Out[6]:
-array([[1],
-       [2]])
-x2.shape
-Out[7]: (2, 1)
-</code></pre>
-<p>? If we were to decide based on the output of the console, <code>x2</code> would seem to be the most appropriate since it looks like a column vector in the console, while <code>x1</code> looks like a row vector. It turns out though, that the correct way is to use <code>x1</code> to represent $x$. <strong>A vector (in the linear algebra sense) should be represented by a 1-D array in NumPy. A matrix (in the linear algebra sense) should be represented by a 2-D array in NumPy</strong>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">A <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>],[<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>]])
+</code></pre></div><p>since</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">    A
+    Out[<span style="color:#ae81ff">2</span>]:
+    array([[<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>],
+           [<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>]])
+    A<span style="color:#f92672">.</span>shape
+    Out[<span style="color:#ae81ff">3</span>]: (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>)
+</code></pre></div><p>However, how should $x=\begin{bmatrix}1\\2\end{bmatrix}$ be defined? Should we use a 1-D array</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">    x1 <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>])
+    x1
+    Out[<span style="color:#ae81ff">4</span>]: array([<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>])
+    x1<span style="color:#f92672">.</span>shape
+    Out[<span style="color:#ae81ff">5</span>]: (<span style="color:#ae81ff">2</span>,)
+</code></pre></div><p>or a 2-D array with 1 column?</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">    x2<span style="color:#f92672">=</span>np<span style="color:#f92672">.</span>array([[<span style="color:#ae81ff">1</span>],[<span style="color:#ae81ff">2</span>]])
+    x2
+    Out[<span style="color:#ae81ff">6</span>]:
+    array([[<span style="color:#ae81ff">1</span>],
+           [<span style="color:#ae81ff">2</span>]])
+    x2<span style="color:#f92672">.</span>shape
+    Out[<span style="color:#ae81ff">7</span>]: (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>)
+</code></pre></div><p>If we were to decide based on the output of the console, <code>x2</code> would seem to be the most appropriate since it looks like a column vector in the console, while <code>x1</code> looks like a row vector. It turns out though, that the correct way is to use <code>x1</code> to represent $x$. <strong>A vector (in the linear algebra sense) should be represented by a 1-D array in NumPy. A matrix (in the linear algebra sense) should be represented by a 2-D array in NumPy</strong>.</p>
 <p>In fact, for NumPy, there’s no difference between a row or a column vector when it is represented by a 1-D array. The <code>@</code> operator overloads matrix-vector and vector-matrix multiplication so the practitioner does not need to worry about transposing vectors. For example, to compute $x^TA=\begin{bmatrix}7&amp;10\end{bmatrix}$, use</p>
-<pre><code>x1 @ A
-Out[8]: array([ 7, 10])
-</code></pre>
-<p>and to compute $Ax=\begin{bmatrix}5\\11\end{bmatrix}$, use</p>
-<pre><code>A @ x1
-Out[9]: array([ 5, 11])
-</code></pre>
-<p>Also, the weighted scalar product $x^TAx=27$ can be computed by</p>
-<pre><code>x1 @ A @ x1
-Out[10]: 27
-</code></pre>
-<p>How about the outer product, $xx^T=\begin{bmatrix}1&amp;2\\2&amp;4\end{bmatrix}$? This computation does require something beyond the <code>@</code> operator, namely, using NumPy&rsquo;s <code>outer</code> function</p>
-<pre><code>np.outer(x1,x1)
-Out[11]:
-array([[1, 2],
-       [2, 4]])
-</code></pre>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">    x1 <span style="color:#f92672">@</span> A
+    Out[<span style="color:#ae81ff">8</span>]: array([ <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">10</span>])
+</code></pre></div><p>and to compute $Ax=\begin{bmatrix}5\\11\end{bmatrix}$, use</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">    A <span style="color:#f92672">@</span> x1
+    Out[<span style="color:#ae81ff">9</span>]: array([ <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">11</span>])
+</code></pre></div><p>Also, the weighted scalar product $x^TAx=27$ can be computed by</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">    x1 <span style="color:#f92672">@</span> A <span style="color:#f92672">@</span> x1
+    Out[<span style="color:#ae81ff">10</span>]: <span style="color:#ae81ff">27</span>
+</code></pre></div><p>How about the outer product, $xx^T=\begin{bmatrix}1&amp;2\\2&amp;4\end{bmatrix}$? This computation does require something beyond the <code>@</code> operator, namely, using NumPy&rsquo;s <code>outer</code> function</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">    np<span style="color:#f92672">.</span>outer(x1,x1)
+    Out[<span style="color:#ae81ff">11</span>]:
+    array([[<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>],
+           [<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span>]])
+</code></pre></div>
 
     </main>
   </div>

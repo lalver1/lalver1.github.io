@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang='en'><head>
+  <title>Toy deep neural network implementation with PyTorch - Luis Alvergue</title>
+  <link rel='canonical' href='https://lalver1.github.io/post/basicnn/' />
+  <meta charset='utf-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1' />
+  <meta name='description' content='Implement a toy neural network to explore hyper-parameters and model selection' />
+  <meta name='theme-color' content='#FD3519' />
+  
+
+  <meta name="generator" content="Hugo 0.88.1" />
+
+  
+
+
+
+
+
+<link rel="stylesheet" href="https://lalver1.github.io/sass/style.min.8a1658d134a4b54730b66789206b2cf14c1b006a6de3f3fde6302f925b6e01f5.css" integrity="sha256-ihZY0TSktUcwtmeJIGss8UwbAGpt4/P95jAvkltuAfU=" media="screen">
+<link rel="stylesheet" href="https://lalver1.github.io/syntax.min.css" integrity="" media="screen">
+
+  <meta property="og:title" content="Toy deep neural network implementation with PyTorch" />
+<meta property="og:description" content="Implement a toy neural network to explore hyper-parameters and model selection" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://lalver1.github.io/post/basicnn/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-08-14T17:32:11-05:00" />
+<meta property="article:modified_time" content="2021-08-14T19:41:19-05:00" />
+
+
+  <meta itemprop="name" content="Toy deep neural network implementation with PyTorch">
+<meta itemprop="description" content="Implement a toy neural network to explore hyper-parameters and model selection"><meta itemprop="datePublished" content="2021-08-14T17:32:11-05:00" />
+<meta itemprop="dateModified" content="2021-08-14T19:41:19-05:00" />
+<meta itemprop="wordCount" content="1017">
+<meta itemprop="keywords" content="" />
+</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+    integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js"
+    integrity="sha384-JiKN5O8x9Hhs/UE5cT5AAJqieYlOZbGT3CHws/y97o3ty4R7/O5poG9F3JoiOYw1"
+    crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js"
+    integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false }
+            ]
+        });
+    });
+</script>
+
+
+<body>
+
+  <header style="background-image:linear-gradient(
+      rgba(0,0,0,0.4),rgba(0,0,0,0.4)
+    ),url(&#39;https://lalver1.github.io/images/sidebar.png&#39;)">
+
+  <div class="intro">
+    <div class="logo-container">
+      <a href="/">
+        <img src='https://lalver1.github.io/images/luis.jpeg' alt="Profile Tip on using Environment Variables inside Python scripts" class="rounded-logo">
+      </a>
+    </div>
+    <h2>Luis Alvergue</h2>
+    <h3>Controls engineer by training, transportation engineer by trade</h3>
+    <div class="menu">
+      
+
+        <p>
+            <a href="/about/">
+                About
+            </a>
+        </p>
+
+        <p>
+            <a href="/portfolio/">
+                Portfolio
+            </a>
+        </p>
+
+        <p>
+            <a href="/post/">
+                Blog
+            </a>
+        </p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="socials">
+      
+  
+    <a href="mailto:lalver1@gmail.com" class="social-link" target="_blank" rel="noopener" ><div class="icon">
+  <svg
+    width="35px"
+    height="35px"
+    viewBox="0 0 115 115"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+    role="img"
+  >
+    
+    <path
+      d="M 96.586942,14.666666 H 12.509661 c -5.780314,0 -10.4571127,4.729345 -10.4571127,10.509659 L 2,88.234289 c 0,5.780315 4.729347,10.509647 10.509661,10.509647 h 84.077281 c 5.780318,0 10.509668,-4.729332 10.509668,-10.509647 V 25.176325 c 0,-5.780314 -4.72935,-10.509659 -10.509668,-10.509659 z m 0,21.01932 L 54.548301,61.960134 12.509661,35.685986 V 25.176325 l 42.03864,26.274151 42.038641,-26.274151 z"
+    />
+    
+  </svg>
+</div>
+</a>
+  
+
+  
+    <a href="https://github.com/lalver1" class="social-link" target="_blank" rel="noopener" ><div class="icon">
+  <svg
+    width="35px"
+    height="35px"
+    viewBox="0 0 115 115"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+    role="img"
+  >
+    
+    <path
+      d="M102.679 0H12.32C5.52 0 0 5.519 0 12.321v90.358C0 109.48 5.519 115 12.321 115h90.358c6.802 0 12.321-5.519 12.321-12.321V12.32C115 5.52 109.481 0 102.679 0zM71.182 98.494c-2.156.385-2.952-.95-2.952-2.053 0-1.386.051-8.471.051-14.195 0-4.005-1.335-6.546-2.9-7.881C74.878 73.313 84.89 72.003 84.89 55.6c0-4.671-1.669-7.007-4.39-10.01.436-1.105 1.9-5.648-.436-11.552-3.568-1.104-11.731 4.595-11.731 4.595-3.389-.95-7.06-1.438-10.679-1.438-3.62 0-7.29.488-10.679 1.438 0 0-8.163-5.699-11.73-4.595-2.337 5.878-.899 10.422-.437 11.551-2.72 3.004-4.004 5.34-4.004 10.011 0 16.326 9.574 17.712 19.072 18.765-1.232 1.104-2.336 3.003-2.72 5.724-2.44 1.104-8.677 3.004-12.4-3.568-2.335-4.056-6.545-4.39-6.545-4.39-4.159-.05-.282 2.619-.282 2.619 2.772 1.283 4.723 6.212 4.723 6.212 2.49 7.624 14.4 5.057 14.4 5.057 0 3.568.052 9.37.052 10.422 0 1.104-.77 2.438-2.952 2.053C27.21 92.821 15.35 76.701 15.35 57.86c0-23.564 18.02-41.456 41.585-41.456s42.663 17.892 42.663 41.456c.026 18.842-11.474 34.988-28.416 40.635zM46 82.81c-.488.103-.95-.102-1.001-.436-.051-.385.282-.719.77-.822.488-.05.95.154 1.001.488.077.334-.257.668-.77.77zm-2.439-.23c0 .333-.385.615-.898.615-.565.052-.95-.23-.95-.616 0-.333.385-.616.899-.616.487-.051.95.231.95.616zm-3.516-.283c-.103.334-.616.488-1.053.334-.488-.103-.821-.488-.719-.822.103-.334.617-.488 1.053-.385.513.154.847.54.719.873zm-3.158-1.386c-.23.282-.718.23-1.104-.154-.385-.334-.487-.822-.23-1.053.23-.282.718-.23 1.103.154.334.334.462.847.231 1.053zm-2.336-2.336c-.23.154-.667 0-.95-.385-.282-.385-.282-.822 0-1.001.283-.231.72-.052.95.333.283.385.283.847 0 1.053zm-1.668-2.49c-.231.23-.616.103-.899-.154-.282-.334-.333-.719-.102-.899.23-.23.616-.102.898.154.282.334.334.72.103.899zm-1.72-1.9c-.103.231-.436.283-.719.103-.334-.154-.488-.436-.385-.667.103-.154.385-.231.719-.103.334.18.488.462.385.667z"
+    />
+    
+  </svg>
+</div>
+</a>
+  
+
+  
+    <a href="https://www.linkedin.com/in/luis-alvergue-791a6a62/" class="social-link" target="_blank" rel="noopener" ><div class="icon">
+  <svg
+    width="35px"
+    height="35px"
+    viewBox="0 0 115 115"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+    role="img"
+  >
+    
+    <path
+      d="M106.786 0H8.189C3.67 0 0 3.722 0 8.291v98.418C0 111.278 3.67 115 8.189 115h98.597c4.518 0 8.214-3.722 8.214-8.291V8.29C115 3.722 111.304 0 106.786 0zm-72.03 98.571H17.713V43.69h17.07V98.57h-.025zm-8.522-62.377c-5.467 0-9.882-4.44-9.882-9.883 0-5.442 4.415-9.882 9.882-9.882 5.442 0 9.883 4.44 9.883 9.882a9.87 9.87 0 0 1-9.883 9.883zm72.414 62.377H81.604V71.875c0-6.366-.129-14.555-8.856-14.555-8.882 0-10.242 6.931-10.242 14.093V98.57H45.46V43.69h16.352v7.495h.23c2.285-4.312 7.855-8.856 16.147-8.856 17.25 0 20.458 11.372 20.458 26.158V98.57z"
+    />
+    
+  </svg>
+</div>
+</a>
+  
+
+  </div>
+
+</header>
+
+  <div class="content-wrapper">
+    
+    <div class="breadcrumb">
+  
+
+
+
+
+
+<span >
+  <a href="https://lalver1.github.io/"></a>
+   / 
+</span>
+
+
+<span >
+  <a href="https://lalver1.github.io/post/">Blog</a>
+   / 
+</span>
+
+
+<span  class="active">
+  <a href="https://lalver1.github.io/post/basicnn/">Toy deep neural network implementation with PyTorch</a>
+  
+</span>
+
+</div>
+
+    
+    <main id="content" class="post">
+
+<h1>Toy deep neural network implementation with PyTorch</h1>
+<div class="reading-time">
+  <div class="icon">
+  <svg
+    width="18px"
+    height="18px"
+    viewBox="0 0 115 115"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+    role="img"
+  >
+    
+    <path
+      d="M57.5 11C29.05 11 6 34.05 6 62.5S29.05 114 57.5 114 109 90.95 109 62.5 85.95 11 57.5 11zm0 93.032c-22.947 0-41.532-18.585-41.532-41.532 0-22.947 18.585-41.532 41.532-41.532 22.947 0 41.532 18.585 41.532 41.532 0 22.947-18.585 41.532-41.532 41.532zm12.833-21.68L52.703 69.54a2.508 2.508 0 0 1-1.018-2.015V33.427a2.5 2.5 0 0 1 2.492-2.492h6.646a2.5 2.5 0 0 1 2.492 2.492v29.426l13.871 10.092c1.122.81 1.35 2.368.54 3.49l-3.904 5.377a2.51 2.51 0 0 1-3.489.54z"
+    />
+    
+  </svg>
+</div>
+
+  <span>10 minutes</span>
+</div>
+
+<div class="published-date">
+  <div class="icon">
+  <svg
+    width="18px"
+    height="18px"
+    viewBox="0 0 115 115"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+    role="img"
+  >
+    
+    <path
+      d="M77.577 51.23a1.807 1.807 0 0 0-2.2.342l-27.562 27.79a1.807 1.807 0 0 1-2.2.342l-14.008-9.702a1.807 1.807 0 0 0-2.2.342l-1.952 1.968c-.287.22-.456.568-.455.936.001.37.172.716.46.934L45.637 86.77a1.807 1.807 0 0 0 2.2-.342l31.709-31.97c.287-.22.456-.567.455-.936a1.175 1.175 0 0 0-.46-.933l-1.963-1.36z"
+    />
+    <path
+      d="M97.304 20H80.512c-.041.34-.063.683-.064 1.026a5.986 5.986 0 0 0 1.256 4.1c.054.003.103.02.157.025a4.881 4.881 0 0 1 1.865-.025c3.05.562 4.984 3.907 4.32 7.47-.666 3.563-3.678 5.996-6.728 5.433a4.932 4.932 0 0 1-2.437-1.258c-6.018-1.378-10.445-7.795-10.445-15.745 0-.347.023-.685.04-1.026H34.579c-.041.34-.063.683-.064 1.026a5.986 5.986 0 0 0 1.256 4.1c.054.003.103.02.157.025a4.881 4.881 0 0 1 1.865-.025c3.05.562 4.984 3.907 4.32 7.47-.666 3.563-3.678 5.996-6.728 5.433a4.932 4.932 0 0 1-2.437-1.258c-6.018-1.378-10.445-7.795-10.445-15.745 0-.22.019-.434.025-.652a9.788 9.788 0 0 0-5.697 4.471 9.683 9.683 0 0 0-2.65 4.764L1.158 92.871c-.965 4.689 2.6 8.503 7.948 8.503h6.334v2.673c-.077 5.41 4.263 9.861 9.705 9.953h72.16c5.438-.095 9.774-4.546 9.694-9.953V29.953c.08-5.407-4.256-9.858-9.695-9.953zM10.078 96.653c-2.378 0-3.964-1.697-3.535-3.782L16.637 43.84h80.787L87.331 92.871a5.254 5.254 0 0 1-5.091 3.782H10.078zm91.535 7.394c.036 2.403-1.891 4.382-4.308 4.424h-72.16c-2.42-.04-4.352-2.018-4.32-4.424v-2.673h60.443c5.348 0 10.484-3.814 11.449-8.503l8.897-43.215v54.391z"
+    />
+    <path
+      d="M34.814 33c1.243 0 2.251-1.057 2.251-2.36 0-1.305-1.008-2.362-2.25-2.362-2.04 0-4.313-3.194-4.313-7.778s2.272-7.778 4.312-7.778c1.227 0 2.536 1.163 3.386 3.084H43C41.716 11.19 38.578 8 34.814 8 29.871 8 26 13.49 26 20.5c0 7.009 3.871 12.5 8.814 12.5z"
+    />
+    
+  </svg>
+</div>
+
+  <span>August 14, 2021</span>
+</div>
+
+<p><em>Linear Algebra and Learning from Data</em> by Gilbert Strang has the clearest explanation of deep neural networks I have seen, so far. The main reason why I say this is because it describes a neural network as a composition of <strong>Continuous Piecewise Linear (CPL)</strong> functions using linear algebra notation. In addition, the key rule to compute the parameters of these CPL functions is stochastic gradient descent using backpropagation to execute the chain rule that shows up when calculating the gradient. The problem is stated as follows.</p>
+<h4 id="deep-learning">Deep Learning</h4>
+<p>First, suppose you can measure the value of $p$ different variables, and that you store one variable in each component of a vector. Then we have a vector of data $x\in\mathbb{R}^p$. Second, suppose there is a rule $f:\mathbb{R}^p\rightarrow\mathbb{R}^m$, which at the moment is unknown, that maps these measured variables into another set of $m$ measured values represented by a vector of &lsquo;labels&rsquo; $y\in\mathbb{R}^m$. A deep neural network is a composition of CPL functions $F:\mathbb{R}^p\rightarrow\mathbb{R}^m$ that will hopefully approximate $f$. In this way, if we get a new data measurement, we just run it through $F$ and hopefully we will get the &lsquo;correct&rsquo; label associated with this new measurement.</p>
+<p>The state of the art $F$ in deep learning (as of 2021) is a composition of CPLs that looks like this</p>
+<p>$$F=F_N(W_NF_{N-1}(W_{N-1}\ldots F_2(W_2F_1(W_1x+b_1)+b_2))+b_{N-1})+b_N)$$</p>
+<p>where each $F_i$ is a function that applies ReLu to each component of its domain, which is a vector, $W_iv_{i-1}+b_i$. Typically though, the outermost function, which corresponds to the output of the neural network, does not have a ReLu. Having a ReLU would constrain the output to only positive numbers, and although this may make sense for many problems, it typically isn&rsquo;t the case. Also, each $F_i$ is a &lsquo;layer&rsquo; in the neural network, and the number of layers is called the &lsquo;depth&rsquo; of the network. The number of &lsquo;neurons&rsquo; per layer is called the &lsquo;width&rsquo; of the network and is given by the number of rows of $W_i$.</p>
+<p><strong>Note that $W_i$ is a matrix, sorry for the sloppy notation</strong>.</p>
+<h4 id="deep-learning-example-with-1-input-and-1-neuron-per-layer">Deep Learning Example with 1 input and 1 neuron per layer</h4>
+<p>Let&rsquo;s look at a very simple 1 input and 1 neuron per layer example. We are interested in learning the function</p>
+<p>$$
+f(x)=
+\begin{cases}
+0 &amp; x&lt; 0 \\ 2x+1 &amp; x\geq 0
+\end{cases}
+$$</p>
+<p>given data $\left\{y^{(i)},x^{(i)}\right\}$ and assuming a 3-layer deep neural network $F=F_3(F_2(F_1(wx+b)))=w_3((w_2(w_1x+b_1)+b_2))+b_3$. Note that $W_i$ and $b_i$ are scalars in this simple example. Using the following code</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> torch
+<span style="color:#f92672">import</span> random
+<span style="color:#f92672">from</span> matplotlib <span style="color:#f92672">import</span> pyplot <span style="color:#66d9ef">as</span> plt
+<span style="color:#f92672">from</span> IPython <span style="color:#f92672">import</span> display
+
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">make_data</span>(num_examples):
+    <span style="color:#75715e"># Make a piecewise linear data distribution</span>
+    lower, upper <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">20</span>, <span style="color:#ae81ff">20</span>
+    x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>arange(lower, upper,
+    (upper <span style="color:#f92672">-</span> lower) <span style="color:#f92672">/</span> num_examples)
+    y <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>zeros(num_examples)
+    i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+    <span style="color:#66d9ef">for</span> xi <span style="color:#f92672">in</span> x:
+        <span style="color:#66d9ef">if</span> xi <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>:
+            y[i] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.</span>
+        <span style="color:#66d9ef">else</span>:
+            y[i] <span style="color:#f92672">=</span> <span style="color:#ae81ff">2.</span> <span style="color:#f92672">*</span> xi <span style="color:#f92672">+</span> <span style="color:#ae81ff">1.</span>
+        i <span style="color:#f92672">=</span> i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+    <span style="color:#66d9ef">return</span> x, y
+
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">data_iter</span>(batch_size, features, labels):
+    <span style="color:#75715e"># Takes a batch size, a matrix of features,</span>
+    <span style="color:#75715e"># and a vector of labels,</span>
+    <span style="color:#75715e"># yielding minibatches of the size batch_size</span>
+    num_examples <span style="color:#f92672">=</span> len(features)
+    indices <span style="color:#f92672">=</span> list(range(num_examples))
+    random<span style="color:#f92672">.</span>shuffle(indices)
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>, num_examples, batch_size):
+        batch_indices <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tensor
+        (indices[i:min(i <span style="color:#f92672">+</span> batch_size, num_examples)])
+        <span style="color:#66d9ef">yield</span> features[batch_indices],
+        labels[batch_indices]
+
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">relu</span>(X):
+    a <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>zeros_like(X)
+    <span style="color:#66d9ef">return</span> torch<span style="color:#f92672">.</span>max(X, a)
+
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">model</span>(features, w1, b1, w2, b2, w3, b3):
+    <span style="color:#75715e"># One input, one output model</span>
+    <span style="color:#66d9ef">return</span> w3 <span style="color:#f92672">*</span> relu(w2 <span style="color:#f92672">*</span> relu(w1 <span style="color:#f92672">*</span> features <span style="color:#f92672">+</span> b1)
+    <span style="color:#f92672">+</span> b2) <span style="color:#f92672">+</span> b3
+
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">squared_loss</span>(y_hat, y):
+    <span style="color:#66d9ef">return</span> (y_hat <span style="color:#f92672">-</span> y)<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>
+
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">sgd</span>(params, lr, batch_size):
+    <span style="color:#75715e"># Minibatch stochastic gradient descent</span>
+    <span style="color:#66d9ef">with</span> torch<span style="color:#f92672">.</span>no_grad():
+        <span style="color:#66d9ef">for</span> param <span style="color:#f92672">in</span> params:
+            param <span style="color:#f92672">-=</span> lr <span style="color:#f92672">*</span> param<span style="color:#f92672">.</span>grad <span style="color:#f92672">/</span> batch_size
+            param<span style="color:#f92672">.</span>grad<span style="color:#f92672">.</span>zero_()
+
+
+num_examples <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>
+features, labels <span style="color:#f92672">=</span> make_data(num_examples)
+<span style="color:#75715e"># Initialize parameters, w and b</span>
+dimension <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+w1 <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>normal(<span style="color:#ae81ff">0.</span>, <span style="color:#ae81ff">.3</span>, size<span style="color:#f92672">=</span>(dimension, <span style="color:#ae81ff">1</span>),
+requires_grad<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+b1 <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>ones(size<span style="color:#f92672">=</span>(dimension, <span style="color:#ae81ff">1</span>), requires_grad<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+w2 <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>normal(<span style="color:#ae81ff">0.</span>, <span style="color:#ae81ff">.3</span>, size<span style="color:#f92672">=</span>(dimension, <span style="color:#ae81ff">1</span>),
+requires_grad<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+b2 <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>ones(size<span style="color:#f92672">=</span>(dimension, <span style="color:#ae81ff">1</span>), requires_grad<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+w3 <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>normal(<span style="color:#ae81ff">0.</span>, <span style="color:#ae81ff">.3</span>, size<span style="color:#f92672">=</span>(dimension, <span style="color:#ae81ff">1</span>),
+requires_grad<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+b3 <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>ones(size<span style="color:#f92672">=</span>(dimension, <span style="color:#ae81ff">1</span>), requires_grad<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+batch_size <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
+lr <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.001</span>  <span style="color:#75715e"># learning rate</span>
+num_epochs <span style="color:#f92672">=</span> <span style="color:#ae81ff">2000</span>
+net <span style="color:#f92672">=</span> model
+loss <span style="color:#f92672">=</span> squared_loss
+
+<span style="color:#75715e"># Training Loop</span>
+print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Features: </span><span style="color:#e6db74">{</span>features<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+<span style="color:#66d9ef">for</span> epoch <span style="color:#f92672">in</span> range(num_epochs):
+    <span style="color:#66d9ef">for</span> X, y <span style="color:#f92672">in</span> data_iter(batch_size, features, labels):
+        l <span style="color:#f92672">=</span> loss(net(X, w1, b1, w2, b2, w3, b3), y)
+        l<span style="color:#f92672">.</span>sum()<span style="color:#f92672">.</span>backward()
+        sgd([w1, b1, w2, b2, w3, b3], lr, batch_size)
+    <span style="color:#66d9ef">with</span> torch<span style="color:#f92672">.</span>no_grad():
+        train_l <span style="color:#f92672">=</span> loss(net(features, w1, b1, w2, b2,
+        w3, b3), labels)
+        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;epoch </span><span style="color:#e6db74">{</span>epoch <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span><span style="color:#e6db74">}</span><span style="color:#e6db74">,</span>
+        loss {float(train_l<span style="color:#f92672">.</span>mean()):f}<span style="color:#e6db74">&#39;)</span>
+print(
+    <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;w: </span><span style="color:#e6db74">{</span>w1<span style="color:#f92672">.</span>detach()<span style="color:#f92672">.</span>numpy()[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>item(<span style="color:#ae81ff">0</span>)<span style="color:#e6db74">}</span><span style="color:#e6db74">,</span>
+    {w2<span style="color:#f92672">.</span>detach()<span style="color:#f92672">.</span>numpy()[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>item(<span style="color:#ae81ff">0</span>)},
+    {w3<span style="color:#f92672">.</span>detach()<span style="color:#f92672">.</span>numpy()[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>item(<span style="color:#ae81ff">0</span>)}
+    b: {b1<span style="color:#f92672">.</span>detach()<span style="color:#f92672">.</span>numpy()[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>item(<span style="color:#ae81ff">0</span>)},
+    {b2<span style="color:#f92672">.</span>detach()<span style="color:#f92672">.</span>numpy()[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>item(<span style="color:#ae81ff">0</span>)},
+    {b3<span style="color:#f92672">.</span>detach()<span style="color:#f92672">.</span>numpy()[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>item(<span style="color:#ae81ff">0</span>)}<span style="color:#e6db74">&#34;</span>
+)
+labelshat <span style="color:#f92672">=</span> net(features, w1, b1, w2, b2, w3, b3)
+
+fig, ax <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>subplots()
+ax<span style="color:#f92672">.</span>scatter(features<span style="color:#f92672">.</span>detach()<span style="color:#f92672">.</span>numpy(),
+labels<span style="color:#f92672">.</span>detach()<span style="color:#f92672">.</span>numpy(), label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;f(x)&#34;</span>)
+ax<span style="color:#f92672">.</span>scatter(features<span style="color:#f92672">.</span>detach()<span style="color:#f92672">.</span>numpy(),
+           labelshat<span style="color:#f92672">.</span>detach()<span style="color:#f92672">.</span>numpy(),
+           label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;F(x)&#34;</span>,
+           marker<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;*&#34;</span>)
+ax<span style="color:#f92672">.</span>grid()
+ax<span style="color:#f92672">.</span>set_xlabel(<span style="color:#e6db74">&#39;x&#39;</span>)
+ax<span style="color:#f92672">.</span>set_ylabel(<span style="color:#e6db74">&#39;y&#39;</span>)
+ax<span style="color:#f92672">.</span>legend()
+plt<span style="color:#f92672">.</span>show()
+</code></pre></div><p>produced the parameter vector</p>
+<p>$$
+\begin{bmatrix} w_1 \\ w_2 \\ w_3 \\b_1 \\b_2 \\b_3\end{bmatrix}=\begin{bmatrix} 1.5201 \\ 1.3763 \\ 0.9561 \\0.7552 \\4.8357\times10^{-7} \\0.0020\end{bmatrix}
+$$</p>
+<p>and plot showing how the neural network, $F$, did a good job at learning $f$.
+<figure><img src="/post/images/1i1n.svg"
+         alt="Approximating a piecewise linear function with 3 CPLs" height="350"/><figcaption>
+            <p>Approximating a piecewise linear function with 3 CPLs</p>
+        </figcaption>
+</figure>
+
+Notice that $w_1\cdot w_2\cdot w_3\approx2$ and $b_1+ b_2+ b_3\approx0.76$ which makes sense since $f(x)=2x+1$.
+This system seems to be very sensitive to the learning rate, initial guess of the parameter vector, range of values the features cover (in this case $-20\leq x&lt;20$), and the number of epochs. Play around with it to become convinced of how critical these values are and how the training loop is very dependent on their values. These are just a few things you might notice:</p>
+<ol>
+<li>If you multiply the slope of the line by 10, you should divide the learning rate by 10 to help gradient descent converge.</li>
+<li>Another operation that helps gradient descent converge is to normalize $x$. A common technique is to replace $x$ with $\frac{x-\mu}{\sigma}$, where $\mu$ is the sample mean value of $x$ and $\sigma$ is the sample standard deviation. Don&rsquo;t forget that when you want to use the trained neural network on a new feature, you should normalize your new feature using the statistics that you computed from the training data or use scaled versions of $w_1\leftarrow\frac{w_1}{\sigma}$ and $b_1\leftarrow b_1-\frac{w_1\mu}{\sigma}$.</li>
+</ol>
+<p>Also, notice how this neural network architecture is only capable of approximating piecewise linear functions with one &lsquo;kink&rsquo;. No matter how deep the network gets, it is only able to &lsquo;express&rsquo; functions with one kink.</p>
+
+
+    </main>
+  </div>
+  <footer>
+    <div class="footer-wrapper">
+      <p> &nbsp</p>
+      <p>Powered by <a href="https://gohugo.io/" target="_blank" rel="external">Hugo</a> and the <a href="https://github.com/bjacquemet/personal-web" target='_blank' rel="external">Personal Web</a> theme. </p>
+            <p></p>
+    </div>
+  </footer>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:500,600|Raleway:400,400i,600" rel="stylesheet">
+  
+</body>
+</html>
