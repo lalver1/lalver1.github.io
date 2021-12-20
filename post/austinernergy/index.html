@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang='en'><head>
-  <title>Tip on running Flask applications on Apache/2.4.46 (FreeBSD) using CGI - Luis Alvergue</title>
-  <link rel='canonical' href='https://lalver1.github.io/post/cgi_setup/' />
+  <title>Austin Energy - Luis Alvergue</title>
+  <link rel='canonical' href='https://lalver1.github.io/post/austinernergy/' />
   <meta charset='utf-8'>
   <meta name='viewport' content='width=device-width, initial-scale=1' />
-  <meta name='description' content='How to get Flask apps to run using CGI' />
+  <meta name='description' content='Look at average yearly usage' />
   <meta name='theme-color' content='#FD3519' />
   
 
@@ -16,23 +16,43 @@
 
 
 
-<link rel="stylesheet" href="https://lalver1.github.io/sass/style.min.141c61edc7912e0825078bb5b19580b8a855b27fa9a4470d4e65db44d892c2f1.css" integrity="sha256-FBxh7ceRLgglB4u1sZWAuKhVsn&#43;ppEcNTmXbRNiSwvE=" media="screen">
+<link rel="stylesheet" href="https://lalver1.github.io/sass/style.min.2b36cb30be2505c7f5d83dd2fd5bac0ed5cb0cc2b72eb26b9705c8582af29442.css" integrity="sha256-KzbLML4lBcf12D3S/VusDtXLDMK3LrJrlwXIWCrylEI=" media="screen">
 <link rel="stylesheet" href="https://lalver1.github.io/syntax.min.css" integrity="" media="screen">
 
-  <meta property="og:title" content="Tip on running Flask applications on Apache/2.4.46 (FreeBSD) using CGI" />
-<meta property="og:description" content="How to get Flask apps to run using CGI" />
+  <meta property="og:title" content="Austin Energy" />
+<meta property="og:description" content="Look at average yearly usage" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://lalver1.github.io/post/cgi_setup/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2021-06-09T19:35:00+00:00" />
-<meta property="article:modified_time" content="2021-06-09T19:35:00-06:00" />
+<meta property="og:url" content="https://lalver1.github.io/post/austinernergy/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-12-17T17:32:11-05:00" />
+<meta property="article:modified_time" content="2021-12-18T19:41:19-05:00" />
 
 
-  <meta itemprop="name" content="Tip on running Flask applications on Apache/2.4.46 (FreeBSD) using CGI">
-<meta itemprop="description" content="How to get Flask apps to run using CGI"><meta itemprop="datePublished" content="2021-06-09T19:35:00+00:00" />
-<meta itemprop="dateModified" content="2021-06-09T19:35:00-06:00" />
-<meta itemprop="wordCount" content="293">
+  <meta itemprop="name" content="Austin Energy">
+<meta itemprop="description" content="Look at average yearly usage"><meta itemprop="datePublished" content="2021-12-17T17:32:11-05:00" />
+<meta itemprop="dateModified" content="2021-12-18T19:41:19-05:00" />
+<meta itemprop="wordCount" content="95">
 <meta itemprop="keywords" content="" />
 </head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+    integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js"
+    integrity="sha384-JiKN5O8x9Hhs/UE5cT5AAJqieYlOZbGT3CHws/y97o3ty4R7/O5poG9F3JoiOYw1"
+    crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js"
+    integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false }
+            ]
+        });
+    });
+</script>
+
 
 <body>
 
@@ -43,7 +63,7 @@
   <div class="intro">
     <div class="logo-container">
       <a href="/">
-        <img src='https://lalver1.github.io/images/luis.jpeg' alt="Profile Installing Vue&#43;Vuex&#43;Vuetify" class="rounded-logo">
+        <img src='https://lalver1.github.io/images/luis.jpeg' alt="Profile Tip on running Flask applications on Apache/2.4.46 (FreeBSD) using CGI" class="rounded-logo">
       </a>
     </div>
     <h2>Luis Alvergue</h2>
@@ -162,7 +182,7 @@
 
 
 <span  class="active">
-  <a href="https://lalver1.github.io/post/cgi_setup/">Tip on running Flask applications on Apache/2.4.46 (FreeBSD) using CGI</a>
+  <a href="https://lalver1.github.io/post/austinernergy/">Austin Energy</a>
   
 </span>
 
@@ -171,7 +191,7 @@
     
     <main id="content" class="post">
 
-<h1>Tip on running Flask applications on Apache/2.4.46 (FreeBSD) using CGI</h1>
+<h1>Austin Energy</h1>
 <div class="reading-time">
   <div class="icon">
   <svg
@@ -190,7 +210,7 @@
   </svg>
 </div>
 
-  <span>5 minutes</span>
+  <span>10 minutes</span>
 </div>
 
 <div class="published-date">
@@ -217,55 +237,17 @@
   </svg>
 </div>
 
-  <span>June 9, 2021</span>
+  <span>December 17, 2021</span>
 </div>
 
-<p>After receiving several <code>Internal Server Error</code> from Apache and making changes to <code>httpd-custom.conf</code> when trying to run a Flask app using CGI, I realized that setting environment variables in your <code>.profile</code> does not guarantee your <code>.cgi</code> or <code>.py</code> scripts in the <code>cgi-bin</code> directory will have access to them. Knowing the <a href="/post/env_vars" title="env_vars">behavior</a> of <code>crontab</code> and Python scripts, I should have figured this out earlier. For example, if <code>script.py</code> looks something like</p>
-<pre tabindex="0"><code>import sys
-sys.path.append('Your virtual env/site packages')
+<p><em>Linear Algebra and Learning from Data</em> by Gilbert Strang has the clearest explanation of deep neural networks I have seen, so far. The main reason why I say this is because it describes a neural network as a composition of <strong>Continuous Piecewise Linear (CPL)</strong> functions using linear algebra notation. In addition, the key rule to compute the parameters of these CPL functions is stochastic gradient descent using backpropagation to execute the chain rule that shows up when calculating the gradient. The problem is stated as follows.</p>
 
-import os
-import mysql.connector
-from sqlalchemy import create_engine
-import pandas as pd
-from flask import Flask, render_template
-from wsgiref.handlers import CGIHandler
 
-app = Flask(__name__)
 
-sqlpass = os.getenv('SQLCRD')
-sqlusr = os.getenv('SQLUSR')
-sqlsrv = os.getenv('SQLSRV')
-sqldb = os.getenv('SQLDB')
-engine = create_engine('mysql+mysqlconnector://' +
-sqlusr + ':' + sqlpass + '@' + sqlsrv + '/' + sqldb, echo=False)
+<h3><a href="/jupyternotebooks/ElectricityUsage.html">Click here to view this notebook in full screen</a></h3>
+ <iframe src="/jupyternotebooks/ElectricityUsage.html"
+        style="height:2050px;width:100%;border:none;overflow:hidden;" ></iframe>
 
-df = pd.read_sql('SOME SQL QUERY', engine)
-
-@app.route(&quot;/hello&quot;)
-def home():
-    return df.to_json()
-</code></pre><p>and you call it from <code>cgi_script.cgi</code>, where the <code>cgi</code> script follows Flask&rsquo;s documentation</p>
-<pre tabindex="0"><code>#!/pathtoyourpythonvirtualenv/python
-from wsgiref.handlers import CGIHandler
-from yourapplication import app
-
-CGIHandler().run(app)
-</code></pre><p>in the <code>cgi-bin</code> directory. Then, when you call it from</p>
-<p><code>www.yoursitename.com/cgi-bin/cgi_script.cgi/hello</code></p>
-<p>in your browser, it will not work. The reason is that scripts in <code>cgi-bin</code> run in a mostly empty environment, so <code>SQLUSR</code> and <code>SQLCRD</code> are not available, even though they have been defined in <code>.profile</code>. There are several ways to resolve this, I used the following approach. Add <code>from wsgiref.handlers import CGIHandler</code> to the top of <code>script.py</code> and</p>
-<pre tabindex="0"><code>    if __name__ == '__main__':
-        CGIHandler().run(app)
-</code></pre><p>to the bottom of <code>script.py</code>. Then call <code>script.py</code> from a &lsquo;wrapper&rsquo; CGI script (<code>cgi_script.sh</code>) as shown below</p>
-<pre tabindex="0"><code>#!/usr/local/bin/bash
-export SQLUSR=valueofvariable
-export SQLCRD=valueofvariable
-source ~/yourproject/env/bin/activate
-cd ~/whereyoukeepthepythonscript
-python script.py
-</code></pre><p>by pointing your browser to</p>
-<p><code>www.yoursitename.com/cgi-bin/cgi_script.cgi/hello</code></p>
-<p>Alternatively, source your <code>.profile</code> inside of <code>cgi_script.sh</code>. Sourcing your <code>.profile</code> seems more secure but I&rsquo;m not sure if it actually is.</p>
 
 
     </main>
